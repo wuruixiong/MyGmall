@@ -1,6 +1,5 @@
 package wrx.web.gmall.user.service;
 
-import org.springframework.stereotype.Service;
 import wrx.web.gmall.user.bean.UmsMember;
 import wrx.web.gmall.user.bean.UmsMemberReceiveAddress;
 

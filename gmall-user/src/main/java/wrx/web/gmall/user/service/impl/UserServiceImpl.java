@@ -2,7 +2,6 @@ package wrx.web.gmall.user.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
 import wrx.web.gmall.user.bean.UmsMember;
 import wrx.web.gmall.user.bean.UmsMemberReceiveAddress;
 import wrx.web.gmall.user.mapper.UmsMemberReceiveAddressMapper;
