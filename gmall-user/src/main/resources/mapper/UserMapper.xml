@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="wrx.web.gmall.user.mapper.UserMapper">
 
-    <select id="selectAllUsers" resultType="wrx.web.gmall.user.bean.UmsMember">
+    <select id="selectAllUsers" resultType="wrx.web.gmall.bean.UmsMember">
 		select * from ums_member;
 	</select>
 

@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import wrx.web.gmall.user.bean.UmsMember;
-import wrx.web.gmall.user.bean.UmsMemberReceiveAddress;
-import wrx.web.gmall.user.service.UserService;
+import wrx.web.gmall.bean.UmsMember;
+import wrx.web.gmall.bean.UmsMemberReceiveAddress;
+import wrx.web.gmall.service.UserService;
 
 import java.util.List;
 

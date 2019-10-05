@@ -1,7 +1,7 @@
-package wrx.web.gmall.user.service;
+package wrx.web.gmall.service;
 
-import wrx.web.gmall.user.bean.UmsMember;
-import wrx.web.gmall.user.bean.UmsMemberReceiveAddress;
+import wrx.web.gmall.bean.UmsMember;
+import wrx.web.gmall.bean.UmsMemberReceiveAddress;
 
 import java.util.List;
 

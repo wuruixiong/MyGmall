@@ -1,7 +1,7 @@
 package wrx.web.gmall.user.mapper;
 
 import tk.mybatis.mapper.common.Mapper;
-import wrx.web.gmall.user.bean.UmsMember;
+import wrx.web.gmall.bean.UmsMember;
 
 import java.util.List;
 

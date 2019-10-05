@@ -2,11 +2,11 @@ package wrx.web.gmall.user.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import wrx.web.gmall.user.bean.UmsMember;
-import wrx.web.gmall.user.bean.UmsMemberReceiveAddress;
+import wrx.web.gmall.bean.UmsMember;
+import wrx.web.gmall.bean.UmsMemberReceiveAddress;
 import wrx.web.gmall.user.mapper.UmsMemberReceiveAddressMapper;
 import wrx.web.gmall.user.mapper.UserMapper;
-import wrx.web.gmall.user.service.UserService;
+import wrx.web.gmall.service.UserService;
 
 import java.util.List;
 
