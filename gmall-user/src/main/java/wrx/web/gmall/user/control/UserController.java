@@ -16,7 +16,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-
     @RequestMapping("user/getAll")
     @ResponseBody
     public List<UmsMember> getAllUsers () {
