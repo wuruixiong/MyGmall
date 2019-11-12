@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wrx.web.gmall.bean.PmsBaseAttrInfo;
 import wrx.web.gmall.bean.PmsBaseAttrValue;
+import wrx.web.gmall.bean.PmsBaseSaleAttr;
 import wrx.web.gmall.service.AttrService;
 
 import java.util.List;
@@ -18,6 +19,14 @@ public class AttrController  {
 
     @Reference
     AttrService attrService;
+
+    @RequestMapping("baseSaleAttrList")
+    @ResponseBody
+    public List<PmsBaseSaleAttr> baseSaleAttrList(){
+
+        List<PmsBaseSaleAttr> pmsBaseSaleAttrs = attrService.baseSaleAttrList();
+        return pmsBaseSaleAttrs;
+    }
 
     @RequestMapping("saveAttrInfo")
     @ResponseBody
@@ -36,7 +45,6 @@ public class AttrController  {
     @RequestMapping("getAttrValueList")
     @ResponseBody
     public List<PmsBaseAttrValue> getAttrValueList(String attrId){
-
         List<PmsBaseAttrValue> pmsBaseAttrValues = attrService.getAttrValueList(attrId);
         return pmsBaseAttrValues;
     }

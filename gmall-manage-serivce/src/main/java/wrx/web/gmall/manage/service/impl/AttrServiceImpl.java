@@ -7,8 +7,10 @@ import org.springframework.scheduling.annotation.Async;
 import tk.mybatis.mapper.entity.Example;
 import wrx.web.gmall.bean.PmsBaseAttrInfo;
 import wrx.web.gmall.bean.PmsBaseAttrValue;
+import wrx.web.gmall.bean.PmsBaseSaleAttr;
 import wrx.web.gmall.manage.mapper.PmsBaseAttrInfoMapper;
 import wrx.web.gmall.manage.mapper.PmsBaseAttrValueMapper;
+import wrx.web.gmall.manage.mapper.PmsBaseSaleAttrMapper;
 import wrx.web.gmall.service.AttrService;
 
 import java.util.List;
@@ -20,6 +22,8 @@ public class AttrServiceImpl implements AttrService {
     PmsBaseAttrInfoMapper pmsBaseAttrInfoMapper;
     @Autowired
     PmsBaseAttrValueMapper pmsBaseAttrValueMapper;
+    @Autowired
+    PmsBaseSaleAttrMapper pmsBaseSaleAttrMapper;
 
     @Override
     public List<PmsBaseAttrInfo> attrInfoList(String catalog3Id) {
@@ -70,5 +74,9 @@ public class AttrServiceImpl implements AttrService {
         return pmsBaseAttrValues;
     }
 
+    @Override
+    public List<PmsBaseSaleAttr> baseSaleAttrList() {
+        return pmsBaseSaleAttrMapper.selectAll();
+    }
 
 }
