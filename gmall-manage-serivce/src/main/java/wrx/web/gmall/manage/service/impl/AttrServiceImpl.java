@@ -13,6 +13,7 @@ import wrx.web.gmall.manage.mapper.PmsBaseAttrValueMapper;
 import wrx.web.gmall.manage.mapper.PmsBaseSaleAttrMapper;
 import wrx.web.gmall.service.AttrService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,6 +31,15 @@ public class AttrServiceImpl implements AttrService {
         PmsBaseAttrInfo pmsBaseAttrInfo = new PmsBaseAttrInfo();
         pmsBaseAttrInfo.setCatalog3Id(catalog3Id);
         List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.select(pmsBaseAttrInfo);
+
+        for (PmsBaseAttrInfo baseAttrInfo : pmsBaseAttrInfos) {
+            List<PmsBaseAttrValue> pmsBaseAttrValues = new ArrayList<>();
+            PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
+            pmsBaseAttrValue.setAttrId(baseAttrInfo.getId());
+            pmsBaseAttrValues = pmsBaseAttrValueMapper.select(pmsBaseAttrValue);
+            baseAttrInfo.setAttrValueList(pmsBaseAttrValues);
+        }
+
         return pmsBaseAttrInfos;
     }
 

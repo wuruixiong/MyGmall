@@ -2,6 +2,7 @@ package wrx.web.gmall.manage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import wrx.web.gmall.manage.util.PmsUploadUtil;
 
 @SpringBootApplication
 public class GmallManageWebApplication {
