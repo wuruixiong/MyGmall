@@ -38,7 +38,7 @@ public class ItemController {
         List<PmsProductSaleAttr> pmsProductSaleAttrs = spuService.spuSaleAttrListCheckBySku(pmsSkuInfo.getProductId(),pmsSkuInfo.getId());
         map.put("spuSaleAttrListCheckBySku",pmsProductSaleAttrs);
 
-        /*// 查询当前sku的spu的其他sku的集合的hash表
+        // 查询当前sku的spu的其他sku的集合的hash表
         Map<String, String> skuSaleAttrHash = new HashMap<>();
         List<PmsSkuInfo> pmsSkuInfos = skuService.getSkuSaleAttrValueListBySpu(pmsSkuInfo.getProductId());
 
@@ -47,14 +47,14 @@ public class ItemController {
             String v = skuInfo.getId();
             List<PmsSkuSaleAttrValue> skuSaleAttrValueList = skuInfo.getSkuSaleAttrValueList();
             for (PmsSkuSaleAttrValue pmsSkuSaleAttrValue : skuSaleAttrValueList) {
-                k += pmsSkuSaleAttrValue.getSaleAttrValueId() + "|";// "239|245"
+                k += pmsSkuSaleAttrValue.getSaleAttrValueId() + "|";
             }
             skuSaleAttrHash.put(k,v);
         }
 
         // 将sku的销售属性hash表放到页面
         String skuSaleAttrHashJsonStr = JSON.toJSONString(skuSaleAttrHash);
-        map.put("skuSaleAttrHashJsonStr",skuSaleAttrHashJsonStr);*/
+        map.put("skuSaleAttrHashJsonStr",skuSaleAttrHashJsonStr);
 
 
         return "item";
