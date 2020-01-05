@@ -7,3 +7,4 @@ gmall-manage-web用户服务的web层8004
 
 gmall-item-web用户服务的web层8006
 
+gmall-redisson-test用户服务的web层9000
