@@ -6,10 +6,10 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
 @MapperScan(basePackages = "wrx.web.gmall.manage.mapper")
-public class GmallManageSerivceApplication {
+public class GmallManageServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GmallManageSerivceApplication.class, args);
+        SpringApplication.run(GmallManageServiceApplication.class, args);
     }
 
 }

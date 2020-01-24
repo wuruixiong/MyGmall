@@ -8,3 +8,8 @@ gmall-manage-web用户服务的web层8004
 gmall-item-web用户服务的web层8006
 
 gmall-redisson-test用户服务的web层9000
+
+gmall-search-service用户服务的service层8010
+gmall-search-web用户服务的web层8011
+
+
