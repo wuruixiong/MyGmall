@@ -26,16 +26,17 @@ import java.util.Map;
 @Service
 public class SearchServiceImpl implements SearchService {
 
+
     @Autowired
     JestClient jestClient;
 
     @Override
     public List<PmsSearchSkuInfo> list(PmsSearchParam pmsSearchParam) {
-        /*String dslStr = getSearchDsl(pmsSearchParam);
-        System.err.println(dslStr);*/
+        String dslStr = getSearchDsl(pmsSearchParam);
+        System.err.println(dslStr);
         // 用api执行复杂查询
         List<PmsSearchSkuInfo> pmsSearchSkuInfos = new ArrayList<>();
-        /*Search search = new Search.Builder(dslStr).addIndex("gmall0105").addType("PmsSkuInfo").build();
+        Search search = new Search.Builder(dslStr).addIndex("gmall0105").addType("PmsSkuInfo").build();
         SearchResult execute = null;
         try {
             execute = jestClient.execute(search);
@@ -51,11 +52,11 @@ public class SearchServiceImpl implements SearchService {
             pmsSearchSkuInfos.add(source);
         }
 
-        System.out.println(pmsSearchSkuInfos.size());*/
+        System.out.println(pmsSearchSkuInfos.size());
         return pmsSearchSkuInfos;
     }
 
-    /*private String getSearchDsl(PmsSearchParam pmsSearchParam) {
+    private String getSearchDsl(PmsSearchParam pmsSearchParam) {
 
         List<PmsSkuAttrValue> skuAttrValueList = pmsSearchParam.getSkuAttrValueList();
         String keyword = pmsSearchParam.getKeyword();
@@ -102,5 +103,9 @@ public class SearchServiceImpl implements SearchService {
 
         return searchSourceBuilder.toString();
 
-    }*/
+    }
+
+
+
+
 }
