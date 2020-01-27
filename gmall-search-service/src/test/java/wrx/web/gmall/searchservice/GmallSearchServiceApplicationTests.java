@@ -45,7 +45,7 @@ public class GmallSearchServiceApplicationTests {
         // 查询mysql数据
         List<PmsSkuInfo> pmsSkuInfoList = new ArrayList<>();
 
-        pmsSkuInfoList = skuService.getAllSku("61");
+        pmsSkuInfoList = skuService.getAllSku("100");
 
         // 转化为es的数据结构
         List<PmsSearchSkuInfo> pmsSearchSkuInfos = new ArrayList<>();

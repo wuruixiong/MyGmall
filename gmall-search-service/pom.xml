@@ -9,7 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>wrx.web.gmall</groupId>
-    <artifactId>gmall-search-service</artifactId>
+    <artifactId>
+
+    </artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>gmall-search-service</name>
     <description>Demo project for Spring Boot</description>
