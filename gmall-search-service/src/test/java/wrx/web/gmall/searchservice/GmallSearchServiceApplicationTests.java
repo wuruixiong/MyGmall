@@ -1,6 +1,7 @@
 package wrx.web.gmall.searchservice;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.google.gson.JsonObject;
 import io.searchbox.client.JestClient;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -37,7 +38,66 @@ public class GmallSearchServiceApplicationTests {
 
     @Test
     public void contextLoads() throws IOException {
-        put();
+        // put();
+        putTest();
+    }
+
+    public class Article{
+        int id;
+        String author;
+        String content;
+        String title;
+        public int getId() {
+            return id;
+        }
+        public void setId(int id) {
+            this.id = id;
+        }
+        public String getAuthor() {
+            return author;
+        }
+        public void setAuthor(String author) {
+            this.author = author;
+        }
+        public String getContent() {
+            return content;
+        }
+        public void setContent(String content) {
+            this.content = content;
+        }
+        public String getTitle() {
+            return title;
+        }
+        public void setTitle(String title) {
+            this.title = title;
+        }
+    }
+
+    public void putTest() throws IOException {
+
+       /* Article article = new Article();
+        article.setId(1);
+        article.setAuthor("Jerry");
+        article.setContent("hello Jerry!");
+        article.setTitle("好消息");
+        //构建一个索引功能，类型为news
+        Index index = new Index.Builder(article).index("jest").type("news").id("101").build();
+
+        try {
+            jestClient.execute(index);
+            System.out.println("数据索引成功！");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("title", "My first blog entry");
+        jsonObject.addProperty("text", "Just trying this out...");
+        jsonObject.addProperty("date", "2020/01/01");
+        Index put = new Index.Builder(jsonObject.toString()).index("website").type("blog").id("100").build();
+        jestClient.execute(put);
+        System.out.print("put success");
+
     }
 
     public void put() throws IOException {
@@ -66,6 +126,8 @@ public class GmallSearchServiceApplicationTests {
             Index put = new Index.Builder(pmsSearchSkuInfo).index("gmall0105").type("PmsSkuInfo").id(pmsSearchSkuInfo.getId()+"").build();
             jestClient.execute(put);
         }
+
+        System.out.print("put success");
 
     }
 

@@ -13,6 +13,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import sun.rmi.runtime.Log;
 import wrx.web.gmall.bean.PmsSearchParam;
 import wrx.web.gmall.bean.PmsSearchSkuInfo;
 import wrx.web.gmall.bean.PmsSkuAttrValue;
@@ -41,8 +42,12 @@ public class SearchServiceImpl implements SearchService {
         try {
             execute = jestClient.execute(search);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.print("MyTest ExceptionOut:" + e.getStackTrace());
+            //e.printStackTrace();
         }
+
+        System.out.print("MyTest:" + "get execute" );
+
         List<SearchResult.Hit<PmsSearchSkuInfo, Void>> hits = execute.getHits(PmsSearchSkuInfo.class);
         for (SearchResult.Hit<PmsSearchSkuInfo, Void> hit : hits) {
             PmsSearchSkuInfo source = hit.source;
@@ -89,11 +94,12 @@ public class SearchServiceImpl implements SearchService {
         searchSourceBuilder.query(boolQueryBuilder);
 
         // highlight
-        HighlightBuilder highlightBuilder = new HighlightBuilder();
+      /*  HighlightBuilder highlightBuilder = new HighlightBuilder();
         highlightBuilder.preTags("<span style='color:red;'>");
         highlightBuilder.field("skuName");
         highlightBuilder.postTags("</span>");
-        searchSourceBuilder.highlight(highlightBuilder);
+        searchSourceBuilder.highlight(highlightBuilder);*/
+
         // sort
         searchSourceBuilder.sort("id",SortOrder.DESC);
         // from

@@ -25,7 +25,7 @@ public class SearchController {
     public String list(PmsSearchParam pmsSearchParam, ModelMap modelMap){// 三级分类id、关键字、
 
         // 调用搜索服务，返回搜索结果
-        List<PmsSearchSkuInfo> pmsSearchSkuInfos =  searchService.list(pmsSearchParam);
+        List<PmsSearchSkuInfo> pmsSearchSkuInfos = searchService.list(pmsSearchParam);
         modelMap.put("skuLsInfoList",pmsSearchSkuInfos);
 
         return "list";
