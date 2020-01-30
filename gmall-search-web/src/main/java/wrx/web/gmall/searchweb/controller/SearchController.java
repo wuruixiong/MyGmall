@@ -16,9 +16,6 @@ import java.util.List;
 public class SearchController {
 
     @Reference
-    SkuService skuService;// 查询mysql
-
-    @Reference
     SearchService searchService;
 
     @RequestMapping("list.html")
