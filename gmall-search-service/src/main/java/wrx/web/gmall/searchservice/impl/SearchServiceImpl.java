@@ -42,12 +42,8 @@ public class SearchServiceImpl implements SearchService {
         try {
             execute = jestClient.execute(search);
         } catch (IOException e) {
-            System.out.print("MyTest ExceptionOut:" + e.getStackTrace());
-            //e.printStackTrace();
+            e.printStackTrace();
         }
-
-        System.out.print("MyTest:" + "get execute" );
-
         List<SearchResult.Hit<PmsSearchSkuInfo, Void>> hits = execute.getHits(PmsSearchSkuInfo.class);
         for (SearchResult.Hit<PmsSearchSkuInfo, Void> hit : hits) {
             PmsSearchSkuInfo source = hit.source;
@@ -94,11 +90,11 @@ public class SearchServiceImpl implements SearchService {
         searchSourceBuilder.query(boolQueryBuilder);
 
         // highlight
-      /*  HighlightBuilder highlightBuilder = new HighlightBuilder();
+        HighlightBuilder highlightBuilder = new HighlightBuilder();
         highlightBuilder.preTags("<span style='color:red;'>");
         highlightBuilder.field("skuName");
         highlightBuilder.postTags("</span>");
-        searchSourceBuilder.highlight(highlightBuilder);*/
+        searchSourceBuilder.highlight(highlightBuilder);
 
         // sort
         searchSourceBuilder.sort("id",SortOrder.DESC);
