@@ -38,8 +38,8 @@ public class GmallSearchServiceApplicationTests {
 
     @Test
     public void contextLoads() throws IOException {
-        // put();
-        putBean();
+        put();
+        // putBean();
     }
 
     public void putBean() throws IOException {

@@ -47,9 +47,12 @@ public class SearchServiceImpl implements SearchService {
         List<SearchResult.Hit<PmsSearchSkuInfo, Void>> hits = execute.getHits(PmsSearchSkuInfo.class);
         for (SearchResult.Hit<PmsSearchSkuInfo, Void> hit : hits) {
             PmsSearchSkuInfo source = hit.source;
+            //使用搜素功能时，该字段才不为空，这里需要判断
             Map<String, List<String>> highlight = hit.highlight;
-            String skuName = highlight.get("skuName").get(0);
-            source.setSkuName(skuName);
+            if(highlight!=null){
+                String skuName = highlight.get("skuName").get(0);
+                source.setSkuName(skuName);
+            }
             pmsSearchSkuInfos.add(source);
         }
 
@@ -89,7 +92,7 @@ public class SearchServiceImpl implements SearchService {
         // query
         searchSourceBuilder.query(boolQueryBuilder);
 
-        // highlight
+        // highlight, 增加高亮配置
         HighlightBuilder highlightBuilder = new HighlightBuilder();
         highlightBuilder.preTags("<span style='color:red;'>");
         highlightBuilder.field("skuName");

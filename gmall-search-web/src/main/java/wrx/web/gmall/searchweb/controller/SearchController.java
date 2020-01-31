@@ -18,6 +18,8 @@ public class SearchController {
     @Reference
     SearchService searchService;
 
+    // 在list.html界面的搜素框中输入，“硅谷”，“华为” 等数据
+    // 页面刷新出搜素内容，并出现搜素关键字高亮
     @RequestMapping("list.html")
     public String list(PmsSearchParam pmsSearchParam, ModelMap modelMap){// 三级分类id、关键字、
 
