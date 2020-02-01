@@ -12,4 +12,6 @@ gmall-redisson-test用户服务的web层9000
 gmall-search-service用户服务的service层8010
 gmall-search-web用户服务的web层8011
 
+gmall-cart-service用户服务的service层8012
+gmall-cart-web用户服务的web层8013
 
