@@ -71,7 +71,22 @@ public class CartController {
         }
 
         modelMap.put("cartList",omsCartItems);
+        // 被勾选商品的总额
+        BigDecimal totalAmount =getTotalAmount(omsCartItems);
+        modelMap.put("totalAmount",totalAmount);
         return "cartList";
+    }
+
+    private BigDecimal getTotalAmount(List<OmsCartItem> omsCartItems) {
+        BigDecimal totalAmount = new BigDecimal("0");
+        for (OmsCartItem omsCartItem : omsCartItems) {
+            BigDecimal totalPrice = omsCartItem.getTotalPrice();
+
+            if(omsCartItem.getIsChecked().equals("1")){
+                totalAmount = totalAmount.add(totalPrice);
+            }
+        }
+        return totalAmount;
     }
 
     @RequestMapping("addToCart")
