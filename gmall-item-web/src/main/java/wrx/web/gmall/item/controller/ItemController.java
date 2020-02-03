@@ -13,6 +13,7 @@ import wrx.web.gmall.bean.PmsSkuSaleAttrValue;
 import wrx.web.gmall.service.SkuService;
 import wrx.web.gmall.service.SpuService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,9 +29,13 @@ public class ItemController {
     SpuService spuService;
 
     @RequestMapping("{skuId}.html")
-    public String item(@PathVariable String skuId, ModelMap map){
+    public String item(@PathVariable String skuId, ModelMap map, HttpServletRequest request){
 
-        PmsSkuInfo pmsSkuInfo = skuService.getSkuById(skuId);
+        String remoteAddr = request.getRemoteAddr();
+
+        // request.getHeader("");// nginx负载均衡
+
+        PmsSkuInfo pmsSkuInfo = skuService.getSkuById(skuId,remoteAddr);
 
         //sku对象
         map.put("skuInfo",pmsSkuInfo);
@@ -47,7 +52,7 @@ public class ItemController {
             String v = skuInfo.getId();
             List<PmsSkuSaleAttrValue> skuSaleAttrValueList = skuInfo.getSkuSaleAttrValueList();
             for (PmsSkuSaleAttrValue pmsSkuSaleAttrValue : skuSaleAttrValueList) {
-                k += pmsSkuSaleAttrValue.getSaleAttrValueId() + "|";
+                k += pmsSkuSaleAttrValue.getSaleAttrValueId() + "|";// "239|245"
             }
             skuSaleAttrHash.put(k,v);
         }
@@ -60,7 +65,6 @@ public class ItemController {
         return "item";
     }
 
-    // http://127.0.0.1:8006/index
     @RequestMapping("index")
     public String index(ModelMap modelMap){
 
@@ -73,6 +77,7 @@ public class ItemController {
         modelMap.put("hello","hello thymeleaf !!");
 
         modelMap.put("check","0");
+
 
         return "index";
     }

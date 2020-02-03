@@ -1,10 +1,10 @@
-package wrx.web.gmall.cartweb;
+package wrx.web.gmall.cart;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GmallCartWebApplicationTests {
+class GmallCartServiceApplicationTests {
 
     @Test
     void contextLoads() {
