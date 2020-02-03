@@ -75,7 +75,7 @@ public class CartController {
     }
 
     @RequestMapping("addToCart")
-    public String addToCart(String skuId, int quantity, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+    public String addToCart(String skuId, String quantity, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         List<OmsCartItem> omsCartItems = new ArrayList<>();
 
         // 调用商品服务查询商品信息
