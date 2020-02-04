@@ -15,3 +15,5 @@ gmall-search-web用户服务的web层8011
 gmall-cart-service用户服务的service层8012
 gmall-cart-web用户服务的web层8013
 
+gmall-passport-web用户服务的web层8015
+
