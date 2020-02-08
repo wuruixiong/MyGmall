@@ -34,11 +34,24 @@ public class UserServiceImpl implements UserService {
         UmsMemberReceiveAddress address = new UmsMemberReceiveAddress();
         address.setMemberId(memberId);
         return umsAddressMapper.select(address);
+    }
 
-       /* Example example = new Example(UmsMemberReceiveAddress.class);
-        example.createCriteria().andEqualTo("memberId", memberId);
-        return umsAddressMapper.selectByExample(example);*/
+    @Autowired
+    UmsMemberReceiveAddressMapper umsMemberReceiveAddressMapper;
 
+    @Override
+    public List<UmsMember> getAllUser() {
+        List<UmsMember> umsMembers = userMapper.selectAll();//userMapper.selectAllUser();
+        return umsMembers;
+    }
+
+    @Override
+    public List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(String memberId) {
+        // 封装的参数对象
+        UmsMemberReceiveAddress umsMemberReceiveAddress = new UmsMemberReceiveAddress();
+        umsMemberReceiveAddress.setMemberId(memberId);
+        List<UmsMemberReceiveAddress> umsMemberReceiveAddresses = umsMemberReceiveAddressMapper.select(umsMemberReceiveAddress);
+        return umsMemberReceiveAddresses;
     }
 
 }

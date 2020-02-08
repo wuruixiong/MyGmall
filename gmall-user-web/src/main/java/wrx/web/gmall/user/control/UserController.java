@@ -16,26 +16,28 @@ public class UserController {
     @Reference
     UserService userService;
 
-    @RequestMapping("user/getAll")
+    @RequestMapping("getReceiveAddressByMemberId")
+    public List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(String memberId){
+
+        List<UmsMemberReceiveAddress> umsMemberReceiveAddresses = userService.getReceiveAddressByMemberId(memberId);
+
+        return umsMemberReceiveAddresses;
+    }
+
+
+    @RequestMapping("getAllUser")
     @ResponseBody
-    public List<UmsMember> getAllUsers () {
-        List<UmsMember> umsMembers = userService.getAllUsers();
+    public List<UmsMember> getAllUser(){
+
+        List<UmsMember> umsMembers = userService.getAllUser();
         return umsMembers;
     }
 
-    @RequestMapping("user/getAddressById")
-    // http://127.0.0.1:8080/user/getAddressById?memberId=1
+    @RequestMapping("index")
     @ResponseBody
-    public List<UmsMemberReceiveAddress> getAllAddress (String memberId) {
-        List<UmsMemberReceiveAddress> umsMembers = userService.selectById(memberId);
-        return umsMembers;
+    public String index(){
+        return "hello user";
     }
 
-
-    @RequestMapping("user/index")
-    @ResponseBody
-    public String index () {
-        return "hello my user";
-    }
 
 }

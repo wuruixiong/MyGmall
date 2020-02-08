@@ -1,0 +1,18 @@
+package wrx.web.gmall.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import wrx.web.gmall.interceptors.AuthInterceptor;
+
+@Configuration
+public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
+    @Autowired
+    AuthInterceptor authInterceptor;
+    @Override
+    public void addInterceptors(InterceptorRegistry registry){
+        registry.addInterceptor(authInterceptor).addPathPatterns("/**");
+        super.addInterceptors(registry);
+    }
+}

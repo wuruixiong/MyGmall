@@ -19,6 +19,7 @@ public class SearchController {
     @Reference
     AttrService attrService;
 
+    //192.168.58.1:8011/list.html
     @RequestMapping("list.html")
     public String list(PmsSearchParam pmsSearchParam, ModelMap modelMap) {// 三级分类id、关键字、
 
