@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import wrx.web.gmall.annotations.LoginRequired;
 import wrx.web.gmall.bean.*;
 import wrx.web.gmall.service.AttrService;
 import wrx.web.gmall.service.SearchService;
@@ -19,7 +20,6 @@ public class SearchController {
     @Reference
     AttrService attrService;
 
-    //192.168.58.1:8011/list.html
     @RequestMapping("list.html")
     public String list(PmsSearchParam pmsSearchParam, ModelMap modelMap) {// 三级分类id、关键字、
 
@@ -71,14 +71,18 @@ public class SearchController {
             modelMap.put("attrValueSelectedList", pmsSearchCrumbs);
         }
 
+
+
         String urlParam = getUrlParam(pmsSearchParam);
         modelMap.put("urlParam", urlParam);
         String keyword = pmsSearchParam.getKeyword();
         if (StringUtils.isNotBlank(keyword)) {
             modelMap.put("keyword", keyword);
         }
+
         return "list";
     }
+
 
     private String getUrlParamForCrumb(PmsSearchParam pmsSearchParam, String delValueId) {
         String keyword = pmsSearchParam.getKeyword();
@@ -144,7 +148,9 @@ public class SearchController {
     }
 
     @RequestMapping("index")
-    public String index(){
+    @LoginRequired(loginSuccess = false)
+    public String index() {
         return "index";
     }
+
 }
