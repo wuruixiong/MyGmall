@@ -17,6 +17,12 @@ import java.util.Map;
 @Component
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
+    /**
+     * 拦截器测试认证中心功能：
+     * 访问8013/toTrade，必须登录的接口，跳转到登录页面
+     *
+     *
+     */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 拦截代码
         // 判断被拦截的请求的访问的方法的注解(是否时需要拦截的)
@@ -57,7 +63,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                     ip = "127.0.0.1";
                 }
             }
-            String successJson  = HttpclientUtil.doGet("http://passport.gmall.com:8085/verify?token=" + token+"&currentIp="+ip);
+            // 以下的地址是 认证中心的地址和端口，拦截需要登录的请求
+            String successJson  = HttpclientUtil.doGet("http://192.168.58.1:8015/verify?token=" + token+"&currentIp="+ip);
 
             successMap = JSON.parseObject(successJson,Map.class);
 
@@ -70,7 +77,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             if (!success.equals("success")) {
                 //重定向会passport登录
                 StringBuffer requestURL = request.getRequestURL();
-                response.sendRedirect("http://passport.gmall.com:8085/index?ReturnUrl="+requestURL);
+                response.sendRedirect("http://192.168.58.1:8015/index?ReturnUrl="+requestURL);
                 return false;
             }
 

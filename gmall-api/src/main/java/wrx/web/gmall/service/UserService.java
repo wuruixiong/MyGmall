@@ -14,4 +14,6 @@ public interface UserService {
     List<UmsMember> getAllUser();
 
     UmsMember login(UmsMember umsMember);
+
+    void addUserToken(String token, String memberId);
 }

@@ -1,6 +1,8 @@
 package wrx.web.gmall.passport.controller;
 
+import com.alibaba.dubbo.common.utils.StringUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,7 @@ import wrx.web.gmall.bean.UmsMember;
 import wrx.web.gmall.service.UserService;
 import wrx.web.gmall.util.JwtUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,17 +23,29 @@ public class PassportController {
 
     @RequestMapping("verify")
     @ResponseBody
-    public String verify(String token){
+    public String verify(String token,String currentIp,HttpServletRequest request){
 
         // 通过jwt校验token真假
+        Map<String,String> map = new HashMap<>();
 
-        return "success";
+        Map<String, Object> decode = JwtUtil.decode(token, "2019gmall0105", currentIp);
+
+        if(decode!=null){
+            map.put("status","success");
+            map.put("memberId",(String)decode.get("memberId"));
+            map.put("nickname",(String)decode.get("nickname"));
+        }else{
+            map.put("status","fail");
+        }
+
+
+        return JSON.toJSONString(map);
     }
 
 
     @RequestMapping("login")
     @ResponseBody
-    public String login(UmsMember umsMember){
+    public String login(UmsMember umsMember, HttpServletRequest request){
 
         String token = "";
 
@@ -48,7 +63,7 @@ public class PassportController {
             userMap.put("nickname",nickname);
 
 
-           /* String ip = request.getHeader("x-forwarded-for");// 通过nginx转发的客户端ip
+            String ip = request.getHeader("x-forwarded-for");// 通过nginx转发的客户端ip
             if(StringUtils.isBlank(ip)){
                 ip = request.getRemoteAddr();// 从request中获取ip
                 if(StringUtils.isBlank(ip)){
@@ -60,7 +75,7 @@ public class PassportController {
             token = JwtUtil.encode("2019gmall0105", userMap, ip);
 
             // 将token存入redis一份
-            userService.addUserToken(token,memberId);*/
+            userService.addUserToken(token,memberId);
 
         }else{
             // 登录失败
