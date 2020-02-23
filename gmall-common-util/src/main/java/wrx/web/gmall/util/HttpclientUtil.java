@@ -10,6 +10,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,8 @@ public class HttpclientUtil {
         return  null;
     }
 
+
+
     public static String doPost(String url, Map<String,String> paramMap)   {
        // 创建Httpclient对象
         CloseableHttpClient httpclient = HttpClients.createDefault();
@@ -49,13 +52,16 @@ public class HttpclientUtil {
         HttpPost httpPost = new HttpPost(url);
         CloseableHttpResponse response = null;
         try {
-            List<BasicNameValuePair> list=new ArrayList<>();
-            for (Map.Entry<String, String> entry : paramMap.entrySet()) {
-                list.add(new BasicNameValuePair(entry.getKey(),entry.getValue())) ;
-            }
-            HttpEntity httpEntity=new UrlEncodedFormEntity(list,"utf-8");
 
-            httpPost.setEntity(httpEntity);
+            if(paramMap!=null){
+                List<BasicNameValuePair> list=new ArrayList<>();
+                for (Map.Entry<String, String> entry : paramMap.entrySet()) {
+                    list.add(new BasicNameValuePair(entry.getKey(),entry.getValue())) ;
+                }
+                HttpEntity httpEntity=new UrlEncodedFormEntity(list,"utf-8");
+                httpPost.setEntity(httpEntity);
+            }
+
             // 执行请求
             response = httpclient.execute(httpPost);
 
@@ -72,7 +78,7 @@ public class HttpclientUtil {
             e.printStackTrace();
             return null;
         }
+
         return  null;
     }
-
 }
