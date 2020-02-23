@@ -19,8 +19,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
     /**
      * 拦截器测试认证中心功能：
-     * 访问8013/toTrade，必须登录的接口，跳转到登录页面
-     *
+     * 访问：8013/toTrade，代码走必须登录的分支，重定向到认证中心的登录页面：8015/index，index.html点击登录，走认证中心的login，
+     * 确认登录成功之后代码中返回一个token，index.html的window.location.href再次重定向到8013/toTrade，
+     * 再次被拦截，走验证登录分支8015/verify验证token(get请求)，拦截器中修改success的状态，
+     * 如果loginSuccess中判断登录成功，return true放行
      *
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
