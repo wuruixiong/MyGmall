@@ -26,8 +26,9 @@ public class TestOauth2 {
     }
 
     public static String getAccess_token(){
-        // 3 换取access_token
+        // 换取access_token
         // client_secret=a79777bba04ac70d973ee002d27ed58c
+        // client_id=187638711
         String s3 = "https://api.weibo.com/oauth2/access_token?";//?client_id=187638711&client_secret=a79777bba04ac70d973ee002d27ed58c&grant_type=authorization_code&redirect_uri=http://passport.gmall.com:8085/vlogin&code=CODE";
         Map<String,String> paramMap = new HashMap<>();
         paramMap.put("client_id","187638711");
@@ -37,10 +38,10 @@ public class TestOauth2 {
         paramMap.put("code","b882d988548ed2b9174af641d20f0dc1");// 授权有效期内可以使用，没新生成一次授权码，说明用户对第三方数据进行重启授权，之前的access_token和授权码全部过期
         String access_token_json = HttpclientUtil.doPost(s3, paramMap);
 
-       Map<String,String> access_map = JSON.parseObject(access_token_json,Map.class);
+        Map<String,String> access_map = JSON.parseObject(access_token_json,Map.class);
 
-       System.out.println(access_map.get("access_token"));
-       System.out.println(access_map.get("uid"));
+        System.out.println(access_map.get("access_token"));
+        System.out.println(access_map.get("uid"));
 
         return access_map.get("access_token");
     }
