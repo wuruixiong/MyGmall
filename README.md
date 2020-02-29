@@ -17,3 +17,6 @@ gmall-cart-web用户服务的web层8013
 
 gmall-passport-web用户服务的web层8015
 
+gmall-other-service 8016
+gmall-other-web 8017
+
