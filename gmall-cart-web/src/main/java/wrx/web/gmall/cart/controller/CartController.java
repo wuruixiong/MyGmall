@@ -103,7 +103,7 @@ public class CartController {
         for (OmsCartItem omsCartItem : omsCartItems) {
             BigDecimal totalPrice = omsCartItem.getTotalPrice();
 
-            if(omsCartItem.getIsChecked().equals("1")){
+            if("1".equals(omsCartItem.getIsChecked())){
                 totalAmount = totalAmount.add(totalPrice);
             }
         }

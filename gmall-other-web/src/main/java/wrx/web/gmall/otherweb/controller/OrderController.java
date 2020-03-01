@@ -45,7 +45,7 @@ public class OrderController {
 
         for (OmsCartItem omsCartItem : omsCartItems) {
             // 每循环一个购物车对象，就封装一个商品的详情到OmsOrderItem
-            if(omsCartItem.getIsChecked().equals("1")){
+            if("1".equals(omsCartItem.getIsChecked())){
                 OmsOrderItem omsOrderItem = new OmsOrderItem();
                 omsOrderItem.setProductName(omsCartItem.getProductName());
                 omsOrderItem.setProductPic(omsCartItem.getProductPic());

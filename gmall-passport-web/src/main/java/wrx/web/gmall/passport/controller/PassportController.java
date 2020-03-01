@@ -9,20 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import wrx.web.gmall.bean.UmsMember;
 import wrx.web.gmall.service.UserService;
+import wrx.web.gmall.util.CookieUtil;
 import wrx.web.gmall.util.HttpclientUtil;
 import wrx.web.gmall.util.JwtUtil;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 public class PassportController {
 
-
     @Reference
     UserService userService;
-
 
     @RequestMapping("vlogin")
     public String vlogin(String code,HttpServletRequest request){
@@ -126,7 +127,7 @@ public class PassportController {
 
     @RequestMapping("login")
     @ResponseBody
-    public String login(UmsMember umsMember, HttpServletRequest request){
+    public String login(UmsMember umsMember, HttpServletRequest request, HttpServletResponse response){
 
         String token = "";
 
@@ -157,6 +158,10 @@ public class PassportController {
 
             // 将token存入redis一份
             userService.addUserToken(token,memberId);
+
+            //wrx增加：设置cookie
+            // CookieUtil.setCookie(request, response, "token", token,60 * 60 * 72, true);
+           // CookieUtil.setCookie(request, response, "test", "cookie test",60 * 60 * 72, true);
 
         }else{
             // 登录失败
