@@ -27,36 +27,30 @@ public class UserServiceImpl implements UserService {
     RedisUtil redisUtil;
 
     @Override
-    public List<UmsMember> getAllUsers() {
-        return userMapper.selectAll();
-    }
-
-    @Override
-    public List<UmsMemberReceiveAddress> getAllUserAddress() {
-        return umsMemberReceiveAddressMapper.selectAll();
-    }
-
-    @Override
-    public List<UmsMemberReceiveAddress> selectById(String memberId) {
-        UmsMemberReceiveAddress address = new UmsMemberReceiveAddress();
-        address.setMemberId(memberId);
-        return umsMemberReceiveAddressMapper.select(address);
-    }
-
-    @Override
     public List<UmsMember> getAllUser() {
+
         List<UmsMember> umsMembers = userMapper.selectAll();//userMapper.selectAllUser();
+
         return umsMembers;
     }
 
     @Override
     public List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(String memberId) {
+
         // 封装的参数对象
         UmsMemberReceiveAddress umsMemberReceiveAddress = new UmsMemberReceiveAddress();
         umsMemberReceiveAddress.setMemberId(memberId);
         List<UmsMemberReceiveAddress> umsMemberReceiveAddresses = umsMemberReceiveAddressMapper.select(umsMemberReceiveAddress);
+
+
+//       Example example = new Example(UmsMemberReceiveAddress.class);
+//       example.createCriteria().andEqualTo("memberId",memberId);
+//       List<UmsMemberReceiveAddress> umsMemberReceiveAddresses = umsMemberReceiveAddressMapper.selectByExample(example);
+
         return umsMemberReceiveAddresses;
     }
+
+
 
     @Override
     public UmsMember login(UmsMember umsMember) {
@@ -65,7 +59,7 @@ public class UserServiceImpl implements UserService {
             jedis = redisUtil.getJedis();
 
             if(jedis!=null){
-                String umsMemberStr = jedis.get("user:" + umsMember.getPassword() + ":info");
+                String umsMemberStr = jedis.get("user:" + umsMember.getPassword()+umsMember.getUsername() + ":info");
 
                 if (StringUtils.isNotBlank(umsMemberStr)) {
                     // 密码正确
@@ -76,23 +70,12 @@ public class UserServiceImpl implements UserService {
             // 链接redis失败，开启数据库
             UmsMember umsMemberFromDb =loginFromDb(umsMember);
             if(umsMemberFromDb!=null){
-                jedis.setex("user:" + umsMember.getPassword() + ":info",60*60*24, JSON.toJSONString(umsMemberFromDb));
+                jedis.setex("user:" + umsMember.getPassword()+umsMember.getUsername() + ":info",60*60*24, JSON.toJSONString(umsMemberFromDb));
             }
             return umsMemberFromDb;
         }finally {
             jedis.close();
         }
-    }
-
-    private UmsMember loginFromDb(UmsMember umsMember) {
-
-        List<UmsMember> umsMembers = userMapper.select(umsMember);
-
-        if(umsMembers!=null){
-            return umsMembers.get(0);
-        }
-        return null;
-
     }
 
     @Override
@@ -105,8 +88,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addOauthUser(UmsMember umsMember) {
+    public UmsMember addOauthUser(UmsMember umsMember) {
         userMapper.insertSelective(umsMember);
+
+        return umsMember;
     }
 
     @Override
@@ -117,8 +102,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UmsMember getOauthUser(UmsMember umsMemberCheck) {
+
+
         UmsMember umsMember = userMapper.selectOne(umsMemberCheck);
         return umsMember;
     }
+
+    @Override
+    public UmsMemberReceiveAddress getReceiveAddressById(String receiveAddressId) {
+        UmsMemberReceiveAddress umsMemberReceiveAddress = new UmsMemberReceiveAddress();
+        umsMemberReceiveAddress.setId(receiveAddressId);
+        UmsMemberReceiveAddress umsMemberReceiveAddress1 = umsMemberReceiveAddressMapper.selectOne(umsMemberReceiveAddress);
+        return umsMemberReceiveAddress1;
+    }
+
+    private UmsMember loginFromDb(UmsMember umsMember) {
+
+        List<UmsMember> umsMembers = userMapper.select(umsMember);
+
+        if(umsMembers!=null){
+            return umsMembers.get(0);
+        }
+
+        return null;
+
+    }
+
 
 }

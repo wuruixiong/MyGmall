@@ -6,21 +6,20 @@ import wrx.web.gmall.bean.UmsMemberReceiveAddress;
 import java.util.List;
 
 public interface UserService {
-    List<UmsMember> getAllUsers();
-    List<UmsMemberReceiveAddress> getAllUserAddress();
-    List<UmsMemberReceiveAddress> selectById(String memberId);
+
+    List<UmsMember> getAllUser();
 
     List<UmsMemberReceiveAddress> getReceiveAddressByMemberId(String memberId);
-    List<UmsMember> getAllUser();
 
     UmsMember login(UmsMember umsMember);
 
     void addUserToken(String token, String memberId);
 
-    UmsMember checkOauthUser(UmsMember umsCheck);
+    public UmsMember addOauthUser(UmsMember umsMember);
 
-    void addOauthUser(UmsMember umsMember);
+    UmsMember checkOauthUser(UmsMember umsCheck);
 
     UmsMember getOauthUser(UmsMember umsMemberCheck);
 
+    UmsMemberReceiveAddress getReceiveAddressById(String receiveAddressId);
 }

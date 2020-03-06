@@ -25,6 +25,7 @@ public class PassportController {
     @Reference
     UserService userService;
 
+
     @RequestMapping("vlogin")
     public String vlogin(String code,HttpServletRequest request){
 
@@ -67,20 +68,20 @@ public class PassportController {
 
         UmsMember umsCheck = new UmsMember();
         umsCheck.setSourceUid(umsMember.getSourceUid());
-        UmsMember umsMemberCheck = userService.checkOauthUser(umsCheck);
+        UmsMember umsMemberCheck = userService.checkOauthUser(umsCheck);// 检查该用户(社交用户)以前是否登陆过系统
 
         if(umsMemberCheck==null){
-            userService.addOauthUser(umsMember);
+            umsMember = userService.addOauthUser(umsMember);
         }else{
             umsMember = umsMemberCheck;
         }
 
         // 生成jwt的token，并且重定向到首页，携带该token
         String token = null;
-        String memberId = umsMember.getId();
+        String memberId = umsMember.getId();// rpc的主键返回策略失效
         String nickname = umsMember.getNickname();
         Map<String,Object> userMap = new HashMap<>();
-        userMap.put("memberId",memberId);
+        userMap.put("memberId",memberId);// 是保存数据库后主键返回策略生成的id
         userMap.put("nickname",nickname);
 
 
@@ -98,8 +99,8 @@ public class PassportController {
         // 将token存入redis一份
         userService.addUserToken(token,memberId);
 
-        // to search index
-        return "redirect:http://192.168.58.1:8011/index?token="+token;
+
+        return "redirect:http://search.gmall.com:8083/index?token="+token;
     }
 
 
@@ -127,7 +128,7 @@ public class PassportController {
 
     @RequestMapping("login")
     @ResponseBody
-    public String login(UmsMember umsMember, HttpServletRequest request, HttpServletResponse response){
+    public String login(UmsMember umsMember, HttpServletRequest request){
 
         String token = "";
 
@@ -159,10 +160,6 @@ public class PassportController {
             // 将token存入redis一份
             userService.addUserToken(token,memberId);
 
-            //wrx增加：设置cookie
-            // CookieUtil.setCookie(request, response, "token", token,60 * 60 * 72, true);
-           // CookieUtil.setCookie(request, response, "test", "cookie test",60 * 60 * 72, true);
-
         }else{
             // 登录失败
             token = "fail";
@@ -177,5 +174,4 @@ public class PassportController {
         map.put("ReturnUrl",ReturnUrl);
         return "index";
     }
-
 }
