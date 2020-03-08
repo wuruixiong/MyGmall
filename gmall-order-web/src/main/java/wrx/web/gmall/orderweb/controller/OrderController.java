@@ -5,6 +5,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import wrx.web.gmall.annotations.LoginRequired;
 import wrx.web.gmall.bean.OmsCartItem;
 import wrx.web.gmall.bean.OmsOrder;
@@ -43,7 +44,7 @@ public class OrderController {
 
     @RequestMapping("submitOrder")
     @LoginRequired(loginSuccess = true)
-    public String submitOrder(String receiveAddressId, BigDecimal totalAmount, String tradeCode, HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelMap modelMap) {
+    public ModelAndView submitOrder(String receiveAddressId, BigDecimal totalAmount, String tradeCode, HttpServletRequest request, HttpServletResponse response, HttpSession session, ModelMap modelMap) {
 
 
         String memberId = (String) request.getAttribute("memberId");
@@ -93,13 +94,14 @@ public class OrderController {
             List<OmsCartItem> omsCartItems = cartService.cartList(memberId);
 
             for (OmsCartItem omsCartItem : omsCartItems) {
-                if ("1".equals(omsCartItem.getIsChecked())) {
+                if (omsCartItem.getIsChecked().equals("1")) {
                     // 获得订单详情列表
                     OmsOrderItem omsOrderItem = new OmsOrderItem();
                     // 检价
                     boolean b = skuService.checkPrice(omsCartItem.getProductSkuId(),omsCartItem.getPrice());
                     if (b == false) {
-                        return "tradeFail";
+                        ModelAndView mv = new ModelAndView("tradeFail");
+                        return mv;
                     }
                     // 验库存,远程调用库存系统
                     omsOrderItem.setProductPic(omsCartItem.getProductPic());
@@ -126,11 +128,15 @@ public class OrderController {
 
 
             // 重定向到支付系统
+            ModelAndView mv = new ModelAndView("redirect:http://http://192.168.58.1:8019/index");
+            mv.addObject("outTradeNo",outTradeNo);
+            mv.addObject("totalAmount",totalAmount);
+            return mv;
         } else {
-            return "tradeFail";
+            ModelAndView mv = new ModelAndView("tradeFail");
+            return mv;
         }
 
-        return null;
     }
 
 
@@ -183,5 +189,7 @@ public class OrderController {
 
         return totalAmount;
     }
+
+
 
 }

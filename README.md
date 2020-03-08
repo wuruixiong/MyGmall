@@ -20,3 +20,4 @@ gmall-passport-web用户服务的web层8015
 gmall-other-service 8016
 gmall-other-web 8017
 
+gmall-payment 8019

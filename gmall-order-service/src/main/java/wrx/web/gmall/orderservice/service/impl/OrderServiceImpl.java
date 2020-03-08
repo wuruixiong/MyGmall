@@ -89,5 +89,15 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    @Override
+    public OmsOrder getOrderByOutTradeNo(String outTradeNo) {
+
+        OmsOrder omsOrder = new OmsOrder();
+        omsOrder.setOrderSn(outTradeNo);
+        OmsOrder omsOrder1 = omsOrderMapper.selectOne(omsOrder);
+
+        return omsOrder1;
+    }
+
 
 }
