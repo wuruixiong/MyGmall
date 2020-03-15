@@ -3,6 +3,7 @@ package wrx.web.gmall.payment.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 
 
+import org.apache.activemq.ScheduledMessage;
 import org.apache.activemq.command.ActiveMQMapMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,9 +79,50 @@ public class PaymentServiceImpl implements PaymentService {
             }
         }
 
-
-
     }
 
+    @Override
+    public void sendDelayPaymentResultCheckQueue(String outTradeNo,int count) {
 
+        Connection connection = null;
+        Session session = null;
+        try {
+            connection = activeMQUtil.getConnectionFactory().createConnection();
+            session = connection.createSession(true, Session.SESSION_TRANSACTED);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+
+        try{
+            Queue payhment_success_queue = session.createQueue("PAYMENT_CHECK_QUEUE");
+            MessageProducer producer = session.createProducer(payhment_success_queue);
+
+            //TextMessage textMessage=new ActiveMQTextMessage();//字符串文本
+
+            MapMessage mapMessage = new ActiveMQMapMessage();// hash结构
+
+            mapMessage.setString("out_trade_no",outTradeNo);
+            mapMessage.setInt("count",count);
+
+            // 为消息加入延迟时间
+            mapMessage.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY,1000*60);
+
+            producer.send(mapMessage);
+
+            session.commit();
+        }catch (Exception ex){
+            // 消息回滚
+            try {
+                session.rollback();
+            } catch (JMSException e1) {
+                e1.printStackTrace();
+            }
+        }finally {
+            try {
+                connection.close();
+            } catch (JMSException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
 }

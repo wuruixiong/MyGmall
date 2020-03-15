@@ -1,7 +1,6 @@
 package wrx.web.gmall.orderweb.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -86,7 +85,7 @@ public class OrderController {
             Date time = c.getTime();
             omsOrder.setReceiveTime(time);
             omsOrder.setSourceType(0);
-            omsOrder.setStatus(0);
+            omsOrder.setStatus("0");
             omsOrder.setOrderType(0);
             omsOrder.setTotalAmount(totalAmount);
 
@@ -128,7 +127,7 @@ public class OrderController {
 
 
             // 重定向到支付系统
-            ModelAndView mv = new ModelAndView("redirect:http://http://192.168.58.1:8019/index");
+            ModelAndView mv = new ModelAndView("redirect:http://payment.gmall.com:8087/index");
             mv.addObject("outTradeNo",outTradeNo);
             mv.addObject("totalAmount",totalAmount);
             return mv;
@@ -189,7 +188,6 @@ public class OrderController {
 
         return totalAmount;
     }
-
 
 
 }
