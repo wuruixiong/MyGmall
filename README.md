@@ -22,5 +22,7 @@ gmall-other-web 8017
 
 gmall-payment 8019
 
+gmall-seckill 8021
+
 gware-manage 9001
 
