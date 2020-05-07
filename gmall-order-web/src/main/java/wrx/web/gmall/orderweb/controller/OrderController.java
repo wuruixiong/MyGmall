@@ -127,7 +127,7 @@ public class OrderController {
 
 
             // 重定向到支付系统
-            ModelAndView mv = new ModelAndView("redirect:http://payment.gmall.com:8087/index");
+            ModelAndView mv = new ModelAndView("redirect:http://192.168.58.1:8019/index");
             mv.addObject("outTradeNo",outTradeNo);
             mv.addObject("totalAmount",totalAmount);
             return mv;

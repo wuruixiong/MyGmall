@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
-@MapperScan(basePackages = "wrx.web.gmall.otherservice.mapper")
+@MapperScan(basePackages = "wrx.web.gmall.orderservice.mapper")
 public class GmallOrderServiceApplication {
 
     public static void main(String[] args) {
